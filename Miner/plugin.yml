@@ -1,0 +1,14 @@
+name: Minner
+version: 1.0.0
+author: Unknowncall
+depend: [Vault, WorldEdit, MineResetLite, Duels]
+ 
+main: net.pixelcade.miner.MinerDriver
+ 
+commands:
+  miner:
+    description: List the ranks of the players current tree
+    usage: /<command>
+  mineradmin:
+    description: Allows player to rankup through the ranks
+    usage: /<command>

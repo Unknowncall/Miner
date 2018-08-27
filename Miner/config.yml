@@ -1,0 +1,35 @@
+mine_order:
+  - A
+  - B
+  - C
+  - D
+  - E
+  - F
+  - G
+  - H
+  - I
+  - J
+  - K
+  - L
+  - M
+  - N
+  - O
+  - P
+  - Q
+  - R
+  - S
+  - T
+  - U
+  - V
+  - W
+  - X
+  - Y
+  - Z
+  - Piggie
+  - Premium
+  - Master
+  - Elite
+  - Peasant
+server_spawn: 'world,0,0,0,0,0'
+miner_item: 339 1 name:&e&lEnchant_Voucher lore:|Right_click_to_redeem_this|miner_item._This_token|is_valid_for_[time]|
+miner_areas: []

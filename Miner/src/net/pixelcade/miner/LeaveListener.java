@@ -69,6 +69,8 @@ public class LeaveListener implements Listener {
 				whitelistedCommands.add("/tokensend");
 				whitelistedCommands.add("/ignore");
 				whitelistedCommands.add("/tokenshop");
+				whitelistedCommands.add("/lm");
+				whitelistedCommands.add("/jm");
 				if (!(whitelistedCommands.contains(event.getMessage().split(" ")[0].toLowerCase()))) {
 					event.getPlayer().sendMessage(
 							ChatColor.RED + "You can't use that command in the miner. To leave type /miner leave");
@@ -124,6 +126,9 @@ public class LeaveListener implements Listener {
 				|| event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
 			ItemStack is = event.getPlayer().getItemInHand();
 			if (is == null) {
+				return;
+			}
+			if (is.getItemMeta() == null) {
 				return;
 			}
 			if (is.getItemMeta().getLore() == null) {

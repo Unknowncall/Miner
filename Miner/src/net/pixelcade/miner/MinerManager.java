@@ -1,6 +1,5 @@
 package net.pixelcade.miner;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -39,25 +38,24 @@ public class MinerManager {
 				boolean mined = false;
 				boolean isDone = false;
 
-				if (isDone == true) {
-					player.teleport(plugin.getServerSpawn());
-					miner.setPlayer(null);
-				}
-				if (!player.hasPermission("miner.perm")) {
+				if (!(player.hasPermission("miner.perm"))) {
 					if (plugin.timeLeft(player) <= 0) {
-						player.teleport(plugin.getServerSpawn());
-						miner.setPlayer(null);
 						player.sendMessage(ChatColor.RED + "You are out of time in the miner.");
+						player.teleport(miner.getTeleportLocation());
+						miner.setPlayer(null);
 						isDone = true;
-					} else {
-						plugin.subtractTime(player, (System.currentTimeMillis() - miner.getLastBlockBreak()));
+					}
+					if (isDone == false) {
+						long amount = System.currentTimeMillis() - miner.getLastBlockBreak();
+						plugin.subtractTime(player, amount);
 						miner.setLastBlockBreak(System.currentTimeMillis());
+					}
 				}
 
 				if (!isDone || miner.getPlayer() != null) {
 
 					if (player.isOp()) {
-						if (i % 1 == 0 && !(mined)) {
+						if (i % 1 == 0 && (!mined)) {
 							mined = true;
 							miner.mine();
 						}
@@ -100,7 +98,5 @@ public class MinerManager {
 				}
 			}
 		}
-
 	}
-
 }

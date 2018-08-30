@@ -83,6 +83,7 @@ public class MinerArea extends Mine {
 	}
 
 	public void addPlayer(Player player) {
+		this.setLastBlockBreak(System.currentTimeMillis());
 		this.setPlayer(player);
 		this.player.teleport(this.teleportLocation);
 		this.reset();
@@ -100,26 +101,29 @@ public class MinerArea extends Mine {
 	double lastZMined = 0.0;
 
 	public void mine() {
-		for (int y = super.getMaxY(); y >= super.getMinY(); --y) {
-			for (int x = super.getMaxX(); x >= super.getMinX(); --x) {
-				for (int z = getMaxZ(); z >= super.getMinZ(); --z) {
-					if (super.getWorld().getBlockAt(new Location(super.getWorld(), x, y, z))
-							.getType() != Material.AIR) {
-						Block block = super.getWorld().getBlockAt(new Location(super.getWorld(), x, y, z));
-						BlockBreakEvent event = new BlockBreakEvent(block, player);
-						this.plugin.getServer().getPluginManager().callEvent(event);
-						if (!event.isCancelled()) {
-							block.setType(Material.AIR);
+		int counter = 0;
+		for (int y = getMaxY(); y >= getMinY(); --y) {
+			for (int x = getMaxX(); x >= getMinX(); --x) {
+				for (int z = getMaxZ(); z >= getMinZ(); --z) {
+					if (getWorld().getBlockAt(new Location(getWorld(), x, y, z)).getType() != Material.AIR) {
+						counter++;
+						if (counter > 1) {
+							break;
 						}
-						return;
-					} else if (super.getWorld().getBlockAt(new Location(super.getWorld(), x, y, z))
-							.getType() == Material.AIR && x == super.getMinX() && y == super.getMinY()
-							&& z == super.getMinZ()) {
-						this.reset();
+						Block block = getWorld().getBlockAt(new Location(getWorld(), x, y, z));
+						BlockBreakEvent event = new BlockBreakEvent(block, player);
+						plugin.getServer().getPluginManager().callEvent(event);
+						break;
+
+					} else if (getWorld().getBlockAt(new Location(getWorld(), x, y, z)).getType() == Material.AIR
+							&& x == getMinX() && y == getMinY() && z == getMinZ()) {
+						reset();
+
 					}
 				}
 			}
 		}
+
 	}
 
 	public String getName() {
@@ -149,6 +153,7 @@ public class MinerArea extends Mine {
 	public Location getMin() {
 		return min;
 	}
+
 	public void setMin(Location min) {
 		this.min = min;
 	}

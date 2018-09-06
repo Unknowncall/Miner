@@ -11,15 +11,19 @@ public class MinerManager {
 
 	public MinerManager(MinerDriver plugin) {
 		this.plugin = plugin;
-		new BukkitRunnable() {
+		try {
+			new BukkitRunnable() {
 
-			@Override
-			public void run() {
-				runLoop();
+				@Override
+				public void run() {
+					runLoop();
 
-			}
+				}
 
-		}.runTaskTimer(plugin, 0, 1);
+			}.runTaskTimer(plugin, 0, 1);
+		} catch (Exception e) {
+			this.plugin.getLogger().info("Big error.");
+		}
 	}
 
 	private int i = 0;

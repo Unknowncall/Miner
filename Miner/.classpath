@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/Zach/Desktop/My Fiels/Pixelcade/Prison/plugins/FastAsyncWorldEdit-bukkit-18.01.17-17d3e57-983-18.3.8.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Zach/Desktop/My Fiels/Pixelcade/Prison/plugins/Duels-3.2.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Zach/Desktop/My Fiels/Pixelcade/Prison/plugins/MineResetLite.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Zach/Desktop/My Fiels/TestServer/spigot.jar"/>

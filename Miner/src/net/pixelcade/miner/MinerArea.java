@@ -87,6 +87,9 @@ public class MinerArea extends Mine {
 		this.setPlayer(player);
 		this.player.teleport(this.teleportLocation);
 		this.reset();
+		this.lastXMined = super.getMaxX();
+		this.lastYMined = super.getMaxY();
+		this.lastZMined = super.getMaxZ();
 	}
 
 	boolean isDone = false;
@@ -96,25 +99,24 @@ public class MinerArea extends Mine {
 		this.setPlayer(null);
 	}
 
-	double lastXMined = 0.0;
-	double lastYMined = 0.0;
-	double lastZMined = 0.0;
+	int lastXMined = 0;
+	int lastYMined = 0;
+	int lastZMined = 0;
 
 	public void mine() {
-		int counter = 0;
-		for (int y = getMaxY(); y >= getMinY(); --y) {
-			for (int x = getMaxX(); x >= getMinX(); --x) {
-				for (int z = getMaxZ(); z >= getMinZ(); --z) {
+		for (int y = lastYMined; y >= getMinY(); --y) {
+			for (int x = lastXMined; x >= getMinX(); --x) {
+				for (int z = lastZMined; z >= getMinZ(); --z) {
 					if (getWorld().getBlockAt(new Location(getWorld(), x, y, z)).getType() != Material.AIR) {
-						counter++;
-						if (counter > 1) {
-							break;
-						}
 						Block block = getWorld().getBlockAt(new Location(getWorld(), x, y, z));
 						BlockBreakEvent event = new BlockBreakEvent(block, player);
 						plugin.getServer().getPluginManager().callEvent(event);
-						break;
-
+						this.lastXMined = x;
+						this.lastYMined = y;
+						this.lastZMined = z;
+						y = getMinY();
+						x = getMinX();
+						z = getMinZ();
 					} else if (getWorld().getBlockAt(new Location(getWorld(), x, y, z)).getType() == Material.AIR
 							&& x == getMinX() && y == getMinY() && z == getMinZ()) {
 						reset();
@@ -166,27 +168,27 @@ public class MinerArea extends Mine {
 		this.plugin = plugin;
 	}
 
-	public double getLastXMined() {
+	public int getLastXMined() {
 		return lastXMined;
 	}
 
-	public void setLastXMined(double lastXMined) {
+	public void setLastXMined(int lastXMined) {
 		this.lastXMined = lastXMined;
 	}
 
-	public double getLastYMined() {
+	public int getLastYMined() {
 		return lastYMined;
 	}
 
-	public void setLastYMined(double lastYMined) {
+	public void setLastYMined(int lastYMined) {
 		this.lastYMined = lastYMined;
 	}
 
-	public double getLastZMined() {
+	public int getLastZMined() {
 		return lastZMined;
 	}
 
-	public void setLastZMined(double lastZMined) {
+	public void setLastZMined(int lastZMined) {
 		this.lastZMined = lastZMined;
 	}
 

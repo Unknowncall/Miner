@@ -1,7 +1,7 @@
 name: Minner
 version: 1.0.0
 author: Unknowncall
-depend: [Vault, WorldEdit, MineResetLite, Duels, FastAsyncWorldEdit]
+depend: [Vault, WorldEdit, MineResetLite, Duels]
  
 main: net.pixelcade.miner.MinerDriver
  
